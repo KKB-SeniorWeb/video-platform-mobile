@@ -3,18 +3,18 @@
         <!-- 视频教程 -->
         <VideoCourse></VideoCourse>
         <!-- 技术分享 -->
-<!--        <ArticleShare></ArticleShare>-->
+       <ArticleShare></ArticleShare>
     </div>
 </template>
 
 <script>
     import VideoCourse from "../videoCourse/VideoCourse";
-    // import ArticleShare from "../articleShare/ArticleShare";
+    import ArticleShare from "../articleShare/ArticleShare";
     export default {
         name: "Home",
         components:{
             VideoCourse,
-            // ArticleShare
+            ArticleShare
         }
     }
 </script>

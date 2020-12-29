@@ -1,10 +1,12 @@
 <template>
-    <ul class="article_list">
-        <li v-for="item in articleList" :key="item.id">
-            <a href="javascript:;" class="avatar">
+    <ul class="article_list" ref="articleListRef">
+        <li v-for="item in articleList" :key="item.id" @tap="skipDetail($event,item.id,item.article_author.id)">
+            <router-link to="/user" class="avatar">
                 <img :src="item.article_author.avatar_src" alt="">
-            </a>
-            <a href="javascript:;" class="article_title">{{item.article_title}}</a>
+            </router-link>
+            <router-link :to="{name:'ArticleDetails',params:{articleid:item.id}}" class="article_title">
+                {{item.article_title}}
+            </router-link>
             <span class="reply_time">1小时前</span>
             <!--http://momentjs.cn/-->
         </li>
@@ -12,14 +14,43 @@
 </template>
 
 <script>
+    import {getCurrentInstance,nextTick,ref} from 'vue'
+    import BScroll from 'better-scroll'
     export default {
         name: "ArticleList",
         props:['articleList'],
+        setup(){
+            const {ctx} = getCurrentInstance();
+            const articleListRef = ref(null);
+            const BS = ref(null);
+            nextTick(()=>{
+              BS.value = new BScroll(articleListRef.value,{
+                  tap: true
+              })
+            })
 
+            function skipDetail($event,articleID,userID) {
+                if($event.target.classList.contains('article_title') || $event.target.classList.contains('reply_time')){
+                    // 事件源为文章标题或者回复时间
+                    ctx.$router.push(`/article/details/${articleID}`)
+                } else if($event.target.tagName === 'IMG'){
+                    // 事件源为用户头像
+                    ctx.$router.push(`/homepage/${userID}`)
+                }
+            }
+
+
+            return {BS,skipDetail,articleListRef}
+        }
     }
 </script>
 
 <style scoped>
+    .article_list{
+        width: 100%;
+        height: calc(100% - 1.55rem - 1.63rem);
+        overflow: hidden;
+    }
     .article_list li{
         width: 9.8rem;
         height: 1.24rem;

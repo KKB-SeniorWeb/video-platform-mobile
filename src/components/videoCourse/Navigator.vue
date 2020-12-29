@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import {reactive} from '@vue/composition-api';
+    import {reactive,toRefs} from 'vue';
     export default {
         name: "Navigator",
         setup(){
@@ -25,7 +25,7 @@
                 videoType:['全部','Vue','React','工程化','小程序','其他']
             })
 
-            return {state}
+            return {...toRefs(state)}
         }
     }
 </script>

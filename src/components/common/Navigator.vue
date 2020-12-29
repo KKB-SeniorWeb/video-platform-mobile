@@ -1,9 +1,9 @@
 <template>
     <nav id="nav">
-        <a href="javascript:;"><span class="index"></span>首页</a>
-        <a href="javascript:;"><span class="video"></span>视频教程</a>
-        <a href="javascript:;"><span class="share"></span>技术分享</a>
-        <a href="javascript:;"><span class="user"></span>个人中心</a>
+        <router-link to="/home"><span class="index"></span>首页</router-link>
+        <router-link to="/course"><span class="video"></span>视频教程</router-link>
+        <router-link to="/article"><span class="share"></span>技术分享</router-link>
+        <router-link to="/user"><span class="user"></span>个人中心</router-link>
     </nav>
 </template>
 
